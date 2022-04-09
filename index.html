@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 40px auto;
+            max-width: 650px;
+            line-height: 1.6;
+            font-size: 18px;
+            font-family: "Courier New", Courier, monospace;
+            color: #444;
+            padding: 0 10px;
+        }
+
+        h2 {
+            line-height: 1.2;
+        }
+    </style>
+
+    <script>
+        function upload(){
+            const file = document.getElementById('uploadfile').files[0]
+            const fileReader=new FileReader()
+            try{
+                fileReader.onload=function(e){
+                    console.log(e)
+                }
+                console.log(fileReader.readAsArrayBuffer(file))
+                //console.log(content)
+
+                fileReader.onloadend=function(result){
+                    const something=result.currentTarget.result
+                    console.log(something)
+                    
+                    
+                }
+            }catch(err){
+                console.log(err)
+            }
+
+            const path = "/upload/"
+
+            array = new BigInt64Array(0);
+            buffer = Buffer.from(array.buffer)
+
+            fs.createWriteStream(path).write(buffer);
+
+            
+        
+        console.log(file)
+        }
+    </script>
+</head>
+
+<body>
+    <h2>HTTP Video Streaming</h2>
+    <p>This video is 61MB and is being streamed instead of downloaded.</p>
+    <p>
+        Feel free to seek through the video and it only loads the part you want to
+        watch
+    </p>
+    <video id="videoPlayer" width="650" controls muted="muted" autoplay>
+        <source src="/video" type="video/mp4" />
+    </video>
+    <div id="test">
+
+    </div>
+    
+    <input id="uploadfile" type="file" accept=".mp4"/>
+    <button value="Upload" onclick="upload()">Upload</button>
+    
+    <i>Big Buck Bunny</i>
+</body>
+
+</html>
